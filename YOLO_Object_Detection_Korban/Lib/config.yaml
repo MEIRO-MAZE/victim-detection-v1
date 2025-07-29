@@ -1,0 +1,8 @@
+path: D:\Kuliah\Robotika\KRSRI Software\KRSRI LOMBA\RISET\YOLO_Object_detection_korban\Lib\DATASET_LOMBA # path
+train: images # train images
+val: images # val images
+
+# Classes
+names:
+  0: korban
+  1: dummy
