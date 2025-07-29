@@ -1,0 +1,8 @@
+__pycache__/
+*.py[cod]
+*$py.class
+YOLO_Object_Detection_Korban/
+*.onnx
+*.pt
+*.engine
+*.tflite
