@@ -119,4 +119,4 @@ python3 "Final Release Jetson Nano YOLO/detect.py" \
 
 | Version | Date | Description | Author |
 |---------|------|-------------|--------|
-| 1.0 | 2024-05-30 | Initial release | Luhur Pambudi |
+| 1.0 | 2024-05-30 | Final release | Luhur Pambudi |
