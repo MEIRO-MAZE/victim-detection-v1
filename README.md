@@ -98,6 +98,80 @@ python3 "Final Release Jetson Nano YOLO/detect.py" \
 
 ---
 
+## 📊 Model Training Results – YOLOv5n for Victim Detection
+
+### 1. Training Overview
+| Hyper-parameter | Value |
+|-----------------|-------|
+| Base model | Ultralytics YOLOv5n (1.9 M params) |
+| Image size | 320 × 320 |
+| Optimizer | SGD (momentum 0.937) |
+| Batch size | 32 |
+| Learning rate (initial) | 0.00025 (cosine LR scheduler) |
+| Epochs | 100 |
+| Augmentation | Mosaic, HSV, flip, scale |
+
+---
+
+### 2. Loss Curves
+- **Box loss** (regression): converged from **3.2 → 0.36**  
+- **Classification loss**: dropped from **4.1 → 0.31**  
+- **DFL loss** (distribution focal loss): dropped from **4.2 → 0.95**  
+
+> Loss trends confirm successful learning of victim features (bounding-box, class, key-points distribution).
+
+---
+
+### 3. Key Metrics (Best epoch = 100)
+| Metric | Value | Note |
+|--------|-------|------|
+| **Precision** | **99.29 %** | Very few false-positives; tightly distinguishes victims vs dummies. |
+| **Recall** | **99.80 %** | Nearly all ground-truth objects detected. |
+| **mAP₅₀** | **99.50 %** | Exceeds target ≥ 85 % by a large margin. |
+| **mAP₅₀‒₉₅** | **96.28 %** | Performance remains high at stricter IoU thresholds. |
+
+> Sharp rise observed at epochs 6–7 when learning rate increases, then stabilizes above 0.99 after epoch 50.
+
+---
+
+### 4. Validation Loss vs mAP
+- **Val box/cls/dfl loss** decreases in sync with training loss → *no overfitting*.  
+- **mAP₅₀** plateaus at 0.99 from epoch 55–60, indicating optimal convergence.
+
+---
+
+### 5. Inference Performance on Jetson Nano
+| Item | Benchmark |
+|------|-----------|
+| mAP₅₀ (INT8) | **88 %** (w/ TensorRT) |
+| Latency (pre-process + inference + NMS) | **95 ms** |
+| Frame rate | **~10 FPS** @ 320×320 |
+| Serial TX latency | < 5 ms |
+
+---
+
+### 6. Qualitative Result
+- Stable detection at 0.3–2 m distance.  
+- Zero mis-classification of dummies as victims after epoch 80.  
+- False-negatives only when victim occlusion ≥ 70 %.
+
+---
+
+### 7. Snapshot of Training Chart  
+![training_curves](<img width="2400" height="1200" alt="Image" src="https://github.com/user-attachments/assets/4beade33-17e4-48a2-8c83-2829cb1d09db" />)
+
+---
+
+### 8. How to Reproduce Evaluation
+```bash
+python val.py --weights regional.onnx \
+              --data data/victim.yaml \
+              --imgsz 320 \
+              --task test
+```
+
+---
+
 ## 🧪 Experiments & Evaluation
 
 | Scenario | Arena Size | Victims | Result |
