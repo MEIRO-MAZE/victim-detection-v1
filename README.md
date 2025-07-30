@@ -158,7 +158,7 @@ python3 "Final Release Jetson Nano YOLO/detect.py" \
 ---
 
 ### 7. Snapshot of Training Chart  
-![training_curves](<img width="2400" height="1200" alt="Image" src="https://github.com/user-attachments/assets/4beade33-17e4-48a2-8c83-2829cb1d09db" />)
+<img width="2400" height="1200" alt="Image" src="https://github.com/user-attachments/assets/4beade33-17e4-48a2-8c83-2829cb1d09db" />
 
 ---
 
