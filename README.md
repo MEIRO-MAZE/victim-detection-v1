@@ -183,7 +183,7 @@ python val.py --weights regional.onnx \
 
 ## ✅ Next Steps
 
-- Replace YOLOv5n with **jetson-inference** library  
+- Replace YOLOv5n with **SSD-MobileNet** 
 - Add **depth estimation** (Intel RealSense D435i)  
 - Integrate as **Git submodule** into `MEIRO-research-2024`
 
